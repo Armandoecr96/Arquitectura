@@ -35,14 +35,14 @@ SYSCTL_RCGCGPIO_R12           EQU 0x00000008  	; 1 Enable and provide a clock to
 SYSCTL_PRGPIO_R               EQU 0x400FEA08	;Base 0x400F.E000, Offset 0xA08 indica puerto listo
 SYSCTL_PRGPIO_R12             EQU 0x00000008  ; Bandera puerto listo D
 	
-;*******************Direcciones del puerto A**********************************************
-GPIO_PORTJ0                   EQU 0x400580FC
-GPIO_PORTJ_DIR_R              EQU 0x40058400
-GPIO_PORTJ_AFSEL_R            EQU 0x40058420
-GPIO_PORTJ_PUR_R              EQU 0x40058510
-GPIO_PORTJ_DEN_R              EQU 0x4005851C
-GPIO_PORTJ_AMSEL_R            EQU 0x40058528
-GPIO_PORTJ_PCTL_R             EQU 0x4005852C
+;*******************Direcciones del puerto G**********************************************
+GPIO_PORTH0                   EQU 0x4005F0FC
+GPIO_PORTH_DIR_R              EQU 0x4005F400
+GPIO_PORTH_AFSEL_R            EQU 0x4005F420
+GPIO_PORTH_PUR_R              EQU 0x4005F510
+GPIO_PORTH_DEN_R              EQU 0x4005F51C
+GPIO_PORTH_AMSEL_R            EQU 0x4005F528
+GPIO_PORTH_PCTL_R             EQU 0x4005F52C
 
 SYSCTL_RCGCGPIO_R8            EQU 0x00000001  ; GPIO activa puerto A
 SYSCTL_PRGPIO_R8              EQU 0x00000001  ; GPIO Port J Peripheral ReadyVALOR_INICIAL	
@@ -109,7 +109,7 @@ GPIONinitloop
     STR R0, [R1]                    ; [R1] = R0
     
 	
-;------------Configura puerto A como salida--------------------------
+;------------Configura puerto G como entrada--------------------------
    
     ; activate clock for Port J
     LDR R1, =SYSCTL_RCGCGPIO_R      ; R1 = SYSCTL_RCGCGPIO_R (pointer)
@@ -126,38 +126,38 @@ GPIOJinitloop
     BEQ GPIOJinitloop               ; if(R0 == 0), keep polling
 	
     ; set direction register
-    LDR R1, =GPIO_PORTJ_DIR_R       ; R1 = GPIO_PORTJ_DIR_R (pointer)
+    LDR R1, =GPIO_PORTH_DIR_R       ; R1 = GPIO_PORTJ_DIR_R (pointer)
     LDR R0, [R1]                    ; R0 = [R1] (value)
     ORR R0, R0, #0xFF               ; R0 = R0&~0x01 (make PJ0 in (PJ0 built-in SW1))
     STR R0, [R1]                    ; [R1] = R0
 	
     ; set alternate function register
-    LDR R1, =GPIO_PORTJ_AFSEL_R     ; R1 = GPIO_PORTJ_AFSEL_R (pointer)
+    LDR R1, =GPIO_PORTH_AFSEL_R     ; R1 = GPIO_PORTJ_AFSEL_R (pointer)
     LDR R0, [R1]                    ; R0 = [R1] (value)
     BIC R0, R0, #0xFF               ; R0 = R0&~0x01 (disable alt funct on PJ0)
     STR R0, [R1]                    ; [R1] = R0
 			
     ; set digital enable register
-    LDR R1, =GPIO_PORTJ_DEN_R       ; R1 = GPIO_PORTJ_DEN_R (pointer)
+    LDR R1, =GPIO_PORTH_DEN_R       ; R1 = GPIO_PORTJ_DEN_R (pointer)
     LDR R0, [R1]                    ; R0 = [R1] (value)
     ORR R0, R0, #0xFF               ; R0 = R0|0x01 (enable digital I/O on PJ0)
     STR R0, [R1]                    ; [R1] = R0
 
     ; set port control register
-    LDR R1, =GPIO_PORTJ_PCTL_R      ; R1 = GPIO_PORTJ_PCTL_R (pointer)
+    LDR R1, =GPIO_PORTH_PCTL_R      ; R1 = GPIO_PORTJ_PCTL_R (pointer)
     LDR R0, [R1]                    ; R0 = [R1] (value)
     BIC R0, R0, #0xFFFFFFFF         ; R0 = R0&0xFFFFFFF0 (clear bit0 field)
     ADD R0, R0, #0x00000000         ; R0 = R0+0x00000000 (configure PJ0 as GPIO)
     STR R0, [R1]                    ; [R1] = R0
 	
     ; set analog mode select register
-    LDR R1, =GPIO_PORTJ_AMSEL_R     ; R1 = GPIO_PORTJ_AMSEL_R (pointer)
+    LDR R1, =GPIO_PORTH_AMSEL_R     ; R1 = GPIO_PORTJ_AMSEL_R (pointer)
     LDR R0, [R1]                    ; R0 = [R1] (value)
     BIC R0, R0, #0xFF               ; R0 = R0&~0x01 (disable analog functionality on PJ0)
     STR R0, [R1]                    ; [R1] = R0
 	
 ;-----------------------Activa RS=1  (modo dato)---------
-	LDR R0, =GPIO_PORTJ0
+	LDR R0, =GPIO_PORTH0
 	MOV R1, #0x01
 	STR R1, [R0]       ;RS=A0=1, RD/WR =A1=0, E=A2=0
 	BX  LR
