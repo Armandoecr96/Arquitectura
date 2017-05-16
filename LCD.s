@@ -23,12 +23,12 @@
 
 ; solid state relay connected to PN1
 
-GPIO_PORTC1                   EQU 0x4005A3FC	;GPIO Port D (AHB) 0x4005B000 base de datos
-GPIO_PORTC_DIR_R              EQU 0x4005A400	;Offset 0x400=>  0 es entrada, 1 salida
-GPIO_PORTC_AFSEL_R            EQU 0x4005A420	;Offset 0x420=>  0 funcion como GPIO, 1 funciona como periferico
-GPIO_PORTC_DEN_R              EQU 0x4005A51C	;Offset 0x51C=>  0 funcina como NO digital, 1 funcion digital
-GPIO_PORTC_AMSEL_R            EQU 0x4005A528	;Offset 0x528=>  0 Deshabilita funcion analogica, 1 activa analogica
-GPIO_PORTC_PCTL_R             EQU 0x4005A52C	;Offset 0x52C=>  0 Selecciona funcion alternativa
+GPIO_PORTD1                   EQU 0x4005B3FC	;GPIO Port D (AHB) 0x4005B000 base de datos
+GPIO_PORTD_DIR_R              EQU 0x4005B400	;Offset 0x400=>  0 es entrada, 1 salida
+GPIO_PORTD_AFSEL_R            EQU 0x4005B420	;Offset 0x420=>  0 funcion como GPIO, 1 funciona como periferico
+GPIO_PORTD_DEN_R              EQU 0x4005B51C	;Offset 0x51C=>  0 funcina como NO digital, 1 funcion digital
+GPIO_PORTD_AMSEL_R            EQU 0x4005B528	;Offset 0x528=>  0 Deshabilita funcion analogica, 1 activa analogica
+GPIO_PORTD_PCTL_R             EQU 0x4005B52C	;Offset 0x52C=>  0 Selecciona funcion alternativa
 
 SYSCTL_RCGCGPIO_R             EQU 0x400FE608	;Base 0x400F.E000, Offset 0x608=> 1 activa puerto, 0 desactiva puerto
 SYSCTL_RCGCGPIO_R12           EQU 0x00000008  	; 1 Enable and provide a clock to GPIO Port D in Run mode
@@ -76,7 +76,7 @@ GPIONinitloop
     BEQ GPIONinitloop               ; if(R0 == 0), keep polling
 	
     ; Direccion de salida
-    LDR R1, =GPIO_PORTC_DIR_R       ; R1 = GPIO_PORTC_DIR_R 
+    LDR R1, =GPIO_PORTD_DIR_R       ; R1 = GPIO_PORTD_DIR_R 
     LDR R0, [R1]                    ; R0 = [R1] 
     ORR R0, R0, #0xFF               ; R0 = R0|0xFF (todos los pines del puerto D salida)
     STR R0, [R1]                    ; [R1] = R0
@@ -89,13 +89,13 @@ GPIONinitloop
     STR R0, [R1]                    ; [R1] = R0
 	
     ; set digital enable register
-    LDR R1, =GPIO_PORTC_DEN_R       ; R1 = GPIO_PORTC_DEN_R (pointer)
+    LDR R1, =GPIO_PORTD_DEN_R       ; R1 = GPIO_PORTD_DEN_R (pointer)
     LDR R0, [R1]                    ; R0 = [R1] (value)
     ORR R0, R0, #0xFF               ; R0 = R0|0xFF (activa digital I/O  PD0-PD7)
     STR R0, [R1]                    ; [R1] = R0
 	
     ; set port control register
-    LDR R1, =GPIO_PORTC_PCTL_R      ; R1 = GPIO_PORTC_PCTL_R (pointer)
+    LDR R1, =GPIO_PORTD_PCTL_R      ; R1 = GPIO_PORTD_PCTL_R (pointer)
     LDR R0, [R1]                    ; R0 = [R1] (value)
     BIC R0, R0, #0xFFFFFFFF         ; R0 = R0&0xFFFFFFFF (clear bit1 field)
     ADD R0, R0, #0x00000000         ; R0 = R0+0x00000000 (configure PN1 as GPIO)
@@ -103,7 +103,7 @@ GPIONinitloop
 	
 	
     ; set analog mode select register
-    LDR R1, =GPIO_PORTC_AMSEL_R     ; R1 = GPIO_PORTC_AMSEL_R (pointer)
+    LDR R1, =GPIO_PORTD_AMSEL_R     ; R1 = GPIO_PORTD_AMSEL_R (pointer)
     LDR R0, [R1]                    ; R0 = [R1] (value)
     BIC R0, R0, #0xFF               ; R0 = R0&~0xFF (disable analog functionality on PD0-PD7)
     STR R0, [R1]                    ; [R1] = R0
@@ -190,7 +190,7 @@ LCD_E
 ; Output: none
 ; Modifies: R0, R1
 SSR_Toggle
-    LDR R1, =GPIO_PORTC1            ; R1 = GPIO_PORTC1 (pointer)
+    LDR R1, =GPIO_PORTD1            ; R1 = GPIO_PORTD1 (pointer)
     STR R6, [R1]                    ; R0 = [R1] (previous value)
     BX  LR
 
