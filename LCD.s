@@ -35,7 +35,7 @@ SYSCTL_RCGCGPIO_R12           EQU 0x00000008  	; 1 Enable and provide a clock to
 SYSCTL_PRGPIO_R               EQU 0x400FEA08	;Base 0x400F.E000, Offset 0xA08 indica puerto listo
 SYSCTL_PRGPIO_R12             EQU 0x00000008  ; Bandera puerto listo D
 	
-;*******************Direcciones del puerto G**********************************************
+;*******************Direcciones del puerto H**********************************************
 GPIO_PORTH0                   EQU 0x4005F0FC
 GPIO_PORTH_DIR_R              EQU 0x4005F400
 GPIO_PORTH_AFSEL_R            EQU 0x4005F420
@@ -44,11 +44,11 @@ GPIO_PORTH_DEN_R              EQU 0x4005F51C
 GPIO_PORTH_AMSEL_R            EQU 0x4005F528
 GPIO_PORTH_PCTL_R             EQU 0x4005F52C
 
-SYSCTL_RCGCGPIO_R8            EQU 0x00000001  ; GPIO activa puerto A
-SYSCTL_PRGPIO_R8              EQU 0x00000001  ; GPIO Port J Peripheral ReadyVALOR_INICIAL	
+SYSCTL_RCGCGPIO_R8            EQU 0x00000001  ; GPIO activa puerto H
+SYSCTL_PRGPIO_R8              EQU 0x00000001  ; GPIO Port H Peripheral ReadyVALOR_INICIAL	
 
 
-        AREA    |.text|, CODE, READONLY, ALIGN=2
+        AREA    |.text|, CODE, READONLY, ALIGN = 2
         THUMB
         
         EXPORT SSR_Toggle

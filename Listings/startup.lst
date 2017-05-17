@@ -993,11 +993,12 @@ ARM Macro Assembler    Page 16
                        ***********************
   594 0000001C                 END
 Command Line: --debug --xref --diag_suppress=9931 --cpu=Cortex-M4.fp --apcs=int
-erwork --depend=.\objects\startup.d -o.\objects\startup.o -IC:\tiva_LCD\LCD\RTE
- -IC:\Keil_v5\ARM\PACK\ARM\CMSIS\4.5.0\CMSIS\Include -IC:\Keil_v5\ARM\PACK\Keil
-\TM4C_DFP\1.1.0\Device\Include\TM4C129 --predefine="__EVAL SETA 1" --predefine=
-"__UVISION_VERSION SETA 521" --predefine="_RTE_ SETA 1" --predefine="TM4C1294NC
-PDT SETA 1" --list=.\listings\startup.lst startup.s
+erwork --depend=.\objects\startup.d -o.\objects\startup.o -ID:\Escritorio\LCD\R
+TE\_Target_1 -I"D:\OS C (Postizo)\uVision\ARM\PACK\ARM\CMSIS\5.0.0\CMSIS\Includ
+e" -I"D:\OS C (Postizo)\uVision\ARM\PACK\Keil\TM4C_DFP\1.1.0\Device\Include\TM4
+C129" --predefine="__EVAL SETA 1" --predefine="__UVISION_VERSION SETA 522" --pr
+edefine="_RTE_ SETA 1" --predefine="TM4C1294NCPDT SETA 1" --list=.\listings\sta
+rtup.lst startup.s
 
 
 
