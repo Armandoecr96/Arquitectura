@@ -9,7 +9,7 @@ GPIO_PORTB_PCTL_R             EQU 0x4005952C	;Offset 0x52C=>  0 Selecciona funci
 GPIO_PORTB_ODR_R              EQU 0x4005950C	;Offset 0x50C=>  1 Activa drenador abierto
 ;--------Direccion para activar y verificar puertos------------------------------------------
 
-SYSCTL_RCGCGPIO_R             EQU 0x400FE608	;Base 0x400F.E000, Offset 0x608=> 1 activa puerto, 0 desactiva puerto
+SYSCTL_RCGCGPIO_R	          EQU 0x400FE608	;Base 0x400F.E000, Offset 0x608=> 1 activa puerto, 0 desactiva puerto
 SYSCTL_PRGPIO_R               EQU 0x400FEA08	;Base 0x400F.E000, Offset 0xA08 indica puerto listo
 SYSCTL_RCGCGPIO_R12           EQU 0x00000002  	;1 Enable and provide a clock to GPIO Port D in Run mode
 SYSCTL_PRGPIO_R12             EQU 0x00000002    ;Bandera puerto listo D
@@ -102,7 +102,7 @@ GPIONinitloop
     STR R0, [R1]                    ; [R1] = R0  envia un uno
 	BX LR							; regresa
 	
-;*******************************CODIGO DE RESTE*****************************
+;*******************************CODIGO DE RESET*****************************
 
 INI_reset
 

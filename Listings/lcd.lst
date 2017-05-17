@@ -100,7 +100,7 @@ ARM Macro Assembler    Page 2
                                EQU              0x00000008  ; Bandera puerto li
                                                             sto D
    37 00000000         
-   38 00000000         ;*******************Direcciones del puerto G************
+   38 00000000         ;*******************Direcciones del puerto H************
                        **********************************
    39 00000000 4005F0FC 
                        GPIO_PORTH0
@@ -127,7 +127,7 @@ ARM Macro Assembler    Page 2
    47 00000000 00000001 
                        SYSCTL_RCGCGPIO_R8
                                EQU              0x00000001  ; GPIO activa puert
-                                                            o A
+                                                            o H
 
 
 
@@ -136,13 +136,13 @@ ARM Macro Assembler    Page 3
 
    48 00000000 00000001 
                        SYSCTL_PRGPIO_R8
-                               EQU              0x00000001  ; GPIO Port J Perip
+                               EQU              0x00000001  ; GPIO Port H Perip
                                                             heral ReadyVALOR_IN
                                                             ICIAL 
    49 00000000         
    50 00000000         
-   51 00000000                 AREA             |.text|, CODE, READONLY, ALIGN=
-2
+   51 00000000                 AREA             |.text|, CODE, READONLY, ALIGN 
+= 2
    52 00000000                 THUMB
    53 00000000         
    54 00000000                 EXPORT           SSR_Toggle
@@ -253,10 +253,10 @@ ARM Macro Assembler    Page 4
   109 00000048 6008            STR              R0, [R1]    ; [R1] = R0
   110 0000004A         
   111 0000004A         
-  112 0000004A         ;------------Configura puerto G como entrada------------
-                       --------------
+  112 0000004A         ;------------Configura puerto H como salida-------------
+                       -------------
   113 0000004A         
-  114 0000004A         ; activate clock for Port J
+  114 0000004A         ; activate clock for Port H
   115 0000004A 491D            LDR              R1, =SYSCTL_RCGCGPIO_R ; R1 = S
 
 

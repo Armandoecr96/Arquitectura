@@ -109,9 +109,9 @@ GPIONinitloop
     STR R0, [R1]                    ; [R1] = R0
     
 	
-;------------Configura puerto G como entrada--------------------------
+;------------Configura puerto H como salida--------------------------
    
-    ; activate clock for Port J
+    ; activate clock for Port H
     LDR R1, =SYSCTL_RCGCGPIO_R      ; R1 = SYSCTL_RCGCGPIO_R (pointer)
     LDR R0, [R1]                    ; R0 = [R1] (value)
     ORR R0, R0, #SYSCTL_RCGCGPIO_R8 ; R0 = R0|SYSCTL_RCGCGPIO_R8
